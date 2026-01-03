@@ -1,0 +1,60 @@
+[16-Dec-2025 06:48:04 UTC] PHP Warning:  Undefined array key "csrf_token" in /home/nobresol/aura.nobresolution.com.br/www/index.php on line 51
+[16-Dec-2025 13:08:37 UTC] PHP Warning:  Undefined array key "csrf_token" in /home/nobresol/aura.nobresolution.com.br/www/index.php on line 51
+[16-Dec-2025 17:19:17 UTC] PHP Warning:  Undefined array key "csrf_token" in /home/nobresol/aura.nobresolution.com.br/www/index.php on line 51
+[16-Dec-2025 18:43:32 UTC] PHP Warning:  Undefined array key "csrf_token" in /home/nobresol/aura.nobresolution.com.br/www/index.php on line 51
+[16-Dec-2025 20:01:52 UTC] PHP Warning:  Undefined array key "csrf_token" in /home/nobresol/aura.nobresolution.com.br/www/index.php on line 51
+[16-Dec-2025 20:20:59 UTC] PHP Warning:  Undefined array key "csrf_token" in /home/nobresol/aura.nobresolution.com.br/www/index.php on line 51
+[16-Dec-2025 20:22:43 UTC] PHP Warning:  Undefined array key "csrf_token" in /home/nobresol/aura.nobresolution.com.br/www/index.php on line 51
+[16-Dec-2025 20:25:37 UTC] PHP Warning:  Undefined array key "csrf_token" in /home/nobresol/aura.nobresolution.com.br/www/index.php on line 51
+[16-Dec-2025 21:25:25 UTC] PHP Warning:  Undefined array key "csrf_token" in /home/nobresol/aura.nobresolution.com.br/www/index.php on line 51
+[16-Dec-2025 21:25:27 UTC] PHP Warning:  Undefined array key "csrf_token" in /home/nobresol/aura.nobresolution.com.br/www/index.php on line 51
+[16-Dec-2025 21:25:30 UTC] PHP Warning:  Undefined array key "csrf_token" in /home/nobresol/aura.nobresolution.com.br/www/index.php on line 51
+[16-Dec-2025 21:25:33 UTC] PHP Warning:  Undefined array key "csrf_token" in /home/nobresol/aura.nobresolution.com.br/www/index.php on line 51
+[16-Dec-2025 21:25:34 UTC] PHP Warning:  Undefined array key "csrf_token" in /home/nobresol/aura.nobresolution.com.br/www/index.php on line 51
+[17-Dec-2025 11:45:04 UTC] PHP Warning:  Undefined array key "csrf_token" in /home/nobresol/aura.nobresolution.com.br/www/index.php on line 51
+[17-Dec-2025 16:19:57 UTC] PHP Warning:  Undefined array key "csrf_token" in /home/nobresol/aura.nobresolution.com.br/www/index.php on line 51
+[17-Dec-2025 18:20:17 UTC] PHP Warning:  Undefined array key "csrf_token" in /home/nobresol/aura.nobresolution.com.br/www/index.php on line 51
+[17-Dec-2025 18:39:27 UTC] PHP Warning:  Undefined array key "csrf_token" in /home/nobresol/aura.nobresolution.com.br/www/index.php on line 51
+[17-Dec-2025 18:39:28 UTC] PHP Warning:  Undefined array key "csrf_token" in /home/nobresol/aura.nobresolution.com.br/www/index.php on line 51
+[17-Dec-2025 19:22:48 UTC] PHP Warning:  Undefined array key "csrf_token" in /home/nobresol/aura.nobresolution.com.br/www/index.php on line 51
+[17-Dec-2025 19:24:53 UTC] PHP Warning:  Undefined array key "csrf_token" in /home/nobresol/aura.nobresolution.com.br/www/index.php on line 51
+[17-Dec-2025 20:33:16 UTC] PHP Warning:  Undefined array key "csrf_token" in /home/nobresol/aura.nobresolution.com.br/www/index.php on line 51
+[17-Dec-2025 20:35:29 UTC] PHP Warning:  Undefined array key "csrf_token" in /home/nobresol/aura.nobresolution.com.br/www/index.php on line 51
+[17-Dec-2025 21:42:34 UTC] PHP Warning:  Undefined array key "csrf_token" in /home/nobresol/aura.nobresolution.com.br/www/index.php on line 51
+[17-Dec-2025 22:17:43 UTC] PHP Warning:  Undefined array key "csrf_token" in /home/nobresol/aura.nobresolution.com.br/www/index.php on line 51
+[17-Dec-2025 22:33:15 UTC] PHP Warning:  Undefined array key "csrf_token" in /home/nobresol/aura.nobresolution.com.br/www/index.php on line 50
+[18-Dec-2025 00:15:46 UTC] PHP Warning:  Undefined array key "csrf_token" in /home/nobresol/aura.nobresolution.com.br/www/index.php on line 50
+[18-Dec-2025 00:51:07 UTC] PHP Warning:  Undefined variable $service in /home/nobresol/aura.nobresolution.com.br/www/user.php on line 2572
+[18-Dec-2025 00:51:07 UTC] PHP Warning:  Trying to access array offset on value of type null in /home/nobresol/aura.nobresolution.com.br/www/user.php on line 2572
+[18-Dec-2025 00:51:07 UTC] PHP Warning:  Undefined variable $service in /home/nobresol/aura.nobresolution.com.br/www/user.php on line 2572
+[18-Dec-2025 00:51:07 UTC] PHP Warning:  Trying to access array offset on value of type null in /home/nobresol/aura.nobresolution.com.br/www/user.php on line 2572
+[18-Dec-2025 00:51:07 UTC] PHP Warning:  Undefined variable $service in /home/nobresol/aura.nobresolution.com.br/www/user.php on line 2580
+[18-Dec-2025 00:51:07 UTC] PHP Warning:  Trying to access array offset on value of type null in /home/nobresol/aura.nobresolution.com.br/www/user.php on line 2580
+[18-Dec-2025 00:51:07 UTC] PHP Warning:  Undefined variable $service in /home/nobresol/aura.nobresolution.com.br/www/user.php on line 2580
+[18-Dec-2025 00:51:07 UTC] PHP Warning:  Trying to access array offset on value of type null in /home/nobresol/aura.nobresolution.com.br/www/user.php on line 2580
+[18-Dec-2025 00:51:07 UTC] PHP Warning:  Undefined variable $service in /home/nobresol/aura.nobresolution.com.br/www/user.php on line 4404
+[18-Dec-2025 00:51:07 UTC] PHP Warning:  Trying to access array offset on value of type null in /home/nobresol/aura.nobresolution.com.br/www/user.php on line 4404
+[18-Dec-2025 00:51:07 UTC] PHP Warning:  Undefined variable $service in /home/nobresol/aura.nobresolution.com.br/www/user.php on line 4404
+[18-Dec-2025 00:51:07 UTC] PHP Warning:  Trying to access array offset on value of type null in /home/nobresol/aura.nobresolution.com.br/www/user.php on line 4404
+[18-Dec-2025 00:51:07 UTC] PHP Warning:  Undefined variable $service in /home/nobresol/aura.nobresolution.com.br/www/user.php on line 4412
+[18-Dec-2025 00:51:07 UTC] PHP Warning:  Trying to access array offset on value of type null in /home/nobresol/aura.nobresolution.com.br/www/user.php on line 4412
+[18-Dec-2025 00:51:07 UTC] PHP Warning:  Undefined variable $service in /home/nobresol/aura.nobresolution.com.br/www/user.php on line 4412
+[18-Dec-2025 00:51:07 UTC] PHP Warning:  Trying to access array offset on value of type null in /home/nobresol/aura.nobresolution.com.br/www/user.php on line 4412
+[18-Dec-2025 01:00:06 UTC] PHP Warning:  Undefined variable $service in /home/nobresol/aura.nobresolution.com.br/www/user.php on line 2572
+[18-Dec-2025 01:00:07 UTC] PHP Warning:  Trying to access array offset on value of type null in /home/nobresol/aura.nobresolution.com.br/www/user.php on line 2572
+[18-Dec-2025 01:00:07 UTC] PHP Warning:  Undefined variable $service in /home/nobresol/aura.nobresolution.com.br/www/user.php on line 2572
+[18-Dec-2025 01:00:07 UTC] PHP Warning:  Trying to access array offset on value of type null in /home/nobresol/aura.nobresolution.com.br/www/user.php on line 2572
+[18-Dec-2025 01:00:07 UTC] PHP Warning:  Undefined variable $service in /home/nobresol/aura.nobresolution.com.br/www/user.php on line 2580
+[18-Dec-2025 01:00:07 UTC] PHP Warning:  Trying to access array offset on value of type null in /home/nobresol/aura.nobresolution.com.br/www/user.php on line 2580
+[18-Dec-2025 01:00:07 UTC] PHP Warning:  Undefined variable $service in /home/nobresol/aura.nobresolution.com.br/www/user.php on line 2580
+[18-Dec-2025 01:00:07 UTC] PHP Warning:  Trying to access array offset on value of type null in /home/nobresol/aura.nobresolution.com.br/www/user.php on line 2580
+[18-Dec-2025 01:00:07 UTC] PHP Warning:  Undefined variable $service in /home/nobresol/aura.nobresolution.com.br/www/user.php on line 4404
+[18-Dec-2025 01:00:07 UTC] PHP Warning:  Trying to access array offset on value of type null in /home/nobresol/aura.nobresolution.com.br/www/user.php on line 4404
+[18-Dec-2025 01:00:07 UTC] PHP Warning:  Undefined variable $service in /home/nobresol/aura.nobresolution.com.br/www/user.php on line 4404
+[18-Dec-2025 01:00:07 UTC] PHP Warning:  Trying to access array offset on value of type null in /home/nobresol/aura.nobresolution.com.br/www/user.php on line 4404
+[18-Dec-2025 01:00:07 UTC] PHP Warning:  Undefined variable $service in /home/nobresol/aura.nobresolution.com.br/www/user.php on line 4412
+[18-Dec-2025 01:00:07 UTC] PHP Warning:  Trying to access array offset on value of type null in /home/nobresol/aura.nobresolution.com.br/www/user.php on line 4412
+[18-Dec-2025 01:00:07 UTC] PHP Warning:  Undefined variable $service in /home/nobresol/aura.nobresolution.com.br/www/user.php on line 4412
+[18-Dec-2025 01:00:07 UTC] PHP Warning:  Trying to access array offset on value of type null in /home/nobresol/aura.nobresolution.com.br/www/user.php on line 4412
+[18-Dec-2025 17:57:11 UTC] PHP Warning:  Undefined array key "csrf_token" in /home/nobresol/aura.nobresolution.com.br/www/index.php on line 50
+[18-Dec-2025 18:17:05 UTC] PHP Warning:  Undefined array key "csrf_token" in /home/nobresol/aura.nobresolution.com.br/www/index.php on line 50

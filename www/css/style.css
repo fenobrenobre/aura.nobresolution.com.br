@@ -1,0 +1,143 @@
+body { font-family: 'Inter', sans-serif; }
+.tab-button.active { border-bottom-color: #3b82f6; color: #3b82f6; font-weight: 600; }
+.modal-overlay { transition: opacity 0.3s ease; }
+[v-cloak] { display: none; }
+textarea { resize: vertical; }
+.form-input { margin-top: 0.25rem; width: 100%; border-radius: 0.375rem; border-width: 1px; border-color: #d1d5db; box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05); padding: 0.5rem 0.75rem; }
+/* Estilo 'active' do admin.html (usado como base) */
+.sidebar-link.active { background-color: #ebf8ff; color: #3b82f6; } 
+.toast-enter-active, .toast-leave-active { transition: all 0.5s ease; }
+.toast-enter-from, .toast-leave-to { opacity: 0; transform: translateY(-20px); }
+.is-invalid { border-color: #ef4444; }
+.agenda-grid { display: grid; grid-template-columns: 60px 1fr; }
+.agenda-grid-week { display: grid; grid-template-columns: 60px repeat(7, 1fr); min-width: 800px; }
+
+.password-strength-bar-container {
+    width: 100%;
+    background-color: #e5e7eb;
+    border-radius: 9999px;
+    height: 0.5rem;
+    overflow: hidden;
+}
+.password-strength-bar {
+    height: 100%;
+    transition: width 0.3s ease, background-color 0.3s ease;
+}
+.password-strength-bar.strength-1 { width: 25%; background-color: #ef4444; }
+.password-strength-bar.strength-2 { width: 50%; background-color: #f59e0b; }
+.password-strength-bar.strength-3 { width: 75%; background-color: #3b82f6; }
+.password-strength-bar.strength-4 { width: 100%; background-color: #22c55e; }
+.strength-text-1 { color: #ef4444; }
+.strength-text-2 { color: #f59e0b; }
+.strength-text-3 { color: #3b82f6; }
+.strength-text-4 { color: #22c55e; }
+
+.budget-item-table th, .budget-item-table td {
+    white-space: normal;
+    min-width: 100px;
+    font-weight: 600;
+}
+
+@media (max-width: 767px) {
+    .mobile-hide-sm {
+        display: none !important;
+    }
+}
+
+.mobile-touch-area {
+    padding: 0.75rem 0.5rem;
+}
+
+#patient-modal .grid,
+#clinical-modal .grid,
+#appointment-modal .grid,
+#ledger-entry-modal .grid,
+#manual-forecast-modal .grid,
+#receipt-generator-modal .grid {
+    column-gap: 1rem;
+}
+
+
+/* ** INÍCIO DAS ESTILIZAÇÕES (MENU USER) ** */
+
+/* Estilos visuais para os botões do menu #user-dashboard-view */
+#user-dashboard-view .sidebar-link {
+    margin-bottom: 0.5rem;
+    border-radius: 0.5rem;
+    padding: 0.9rem 0.75rem;
+    font-weight: 500;
+    transition: all 0.2s ease-in-out;
+    border: 1px solid transparent;
+}
+
+#user-dashboard-view .sidebar-link:not(.active):hover {
+    background-color: #f9fafb;
+    border-color: #e5e7eb;
+    color: #1f2937;
+}
+
+/* Botão Ativo (Usuário) */
+#user-dashboard-view .sidebar-link.active {
+    background-color: #e0f2fe;
+    color: #0284c7;
+    font-weight: 600;
+    border-color: #bae6fd;
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+}
+
+/* Cores dos Ícones */
+#user-dashboard-view .icon-agenda { color: #0ea5e9; }
+#user-dashboard-view .icon-pacientes { color: #10b981; }
+#user-dashboard-view .icon-financeiro { color: #f97316; }
+#user-dashboard-view .icon-config { color: #6b7280; }
+
+/* Sublinks */
+#user-dashboard-view .sidebar-sublink {
+    padding: 0.6rem 0.75rem 0.6rem 2.25rem;
+    font-size: 0.875rem;
+    color: #4b5563;
+    border-radius: 0.375rem;
+}
+
+#user-dashboard-view .sidebar-sublink:hover {
+    background-color: #f3f4f6;
+}
+
+#user-dashboard-view .sidebar-sublink.active {
+    background-color: #f3f4f6;
+    color: #1f2937;
+    font-weight: 500;
+}
+
+#user-dashboard-view .sidebar-sublink i {
+    font-size: 0.8rem;
+    opacity: 0.9;
+}
+
+/* ** Estilos de Modal e Lista Interna ** */
+/* Garante que o fundo do modal seja rolável */
+.modal-overlay {
+    overflow-y: auto;
+}
+/* Limita a altura do painel do modal e adiciona margens */
+.modal-overlay > .bg-white {
+    max-height: 90vh;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+/* Limita a altura das listas dentro de abas (Aprox. 4-5 linhas de tabela) */
+.modal-tab-list {
+    max-height: 24rem; /* 384px */
+    overflow-y: auto;
+}
+
+.status-uppercase {
+    text-transform: uppercase;
+}
+
+/* ** INÍCIO DA ADIÇÃO (Compatibilidade MEMED) ** */
+/* Garante que o widget da Memed fique acima dos modais do Aura (que usam z-50) */
+#memed-app, .memed-modal {
+    z-index: 9999 !important;
+}
+/* ** FIM DA ADIÇÃO ** */

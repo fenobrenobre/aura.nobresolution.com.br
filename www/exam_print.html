@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solicitação de Exames</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        @page {
+            size: A4;
+            margin: 0;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #1f2937;
+            margin: 0;
+            padding: 0;
+            line-height: 1.3;
+        }
+        .print-container {
+            width: 210mm;
+            min-height: 297mm;
+            padding: 15mm 20mm;
+            margin: 0 auto;
+            box-sizing: border-box;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* Header */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #3b82f6;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+        .prof-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .prof-logo {
+            max-height: 60px;
+            width: auto;
+        }
+        .prof-details h2 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin: 0;
+            text-transform: uppercase;
+            color: #111827;
+        }
+        .prof-details p {
+            font-size: 0.8rem;
+            margin: 2px 0 0 0;
+            color: #4b5563;
+        }
+        
+        .doc-type {
+            text-align: right;
+        }
+        .doc-type h1 {
+            font-size: 1.4rem;
+            font-weight: 800;
+            margin: 0;
+            color: #3b82f6;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .doc-date {
+            font-size: 0.85rem;
+            color: #6b7280;
+        }
+
+        /* Patient Info */
+        .patient-box {
+            background-color: #f3f4f6;
+            border-radius: 8px;
+            padding: 10px 15px;
+            margin-bottom: 20px;
+            border-left: 4px solid #3b82f6;
+        }
+        .patient-name {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #111827;
+            margin: 0 0 4px 0;
+        }
+        .patient-details {
+            color: #374151;
+            font-size: 0.9rem;
+            margin: 2px 0;
+        }
+        .patient-details strong {
+            font-weight: 600;
+            color: #1f2937;
+        }
+        .patient-metrics {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 4px;
+            border-top: 1px solid #e5e7eb;
+            padding-top: 6px;
+        }
+        .metric-item {
+            font-size: 0.9rem;
+            color: #374151;
+        }
+        .metric-item strong {
+            font-weight: 600;
+            color: #1f2937;
+        }
+
+        /* Content Body - RODAPÉ DINÂMICO */
+        .content-body {
+            /* flex-grow: 1; <-- REMOVIDO para o rodapé subir */
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 30px;
+        }
+
+        .intro-text {
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+            color: #374151;
+            text-align: justify;
+            line-height: 1.5;
+        }
+
+        .exam-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .exam-item {
+            margin-bottom: 12px;
+            padding-left: 15px;
+            position: relative;
+        }
+        .exam-item::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #3b82f6;
+            font-weight: bold;
+        }
+        .exam-name {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #111827;
+        }
+        .exam-instructions {
+            font-size: 0.9rem;
+            color: #4b5563;
+            font-style: italic;
+            display: block;
+            margin-top: 2px;
+        }
+
+        /* Recommendations */
+        .recommendations-section {
+            margin-top: 20px;
+            padding-top: 10px;
+            border-top: 1px dashed #e5e7eb;
+        }
+        .rec-header {
+            font-size: 0.9rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+            color: #374151;
+            text-decoration: underline;
+        }
+        .rec-text {
+            font-size: 0.9rem;
+            color: #374151;
+            white-space: pre-wrap;
+            line-height: 1.4;
+            text-align: justify;
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 10px;
+            text-align: center;
+        }
+        .signature-box {
+            display: inline-block;
+            padding-top: 10px;
+            border-top: 1px solid #000;
+            min-width: 250px;
+            margin-bottom: 15px;
+        }
+        .sig-name {
+            font-weight: 700;
+            font-size: 0.95rem;
+            margin: 0;
+        }
+        .sig-reg {
+            font-size: 0.85rem;
+            color: #4b5563;
+            margin: 0;
+        }
+        .footer-address {
+            font-size: 0.75rem;
+            color: #9ca3af;
+            border-top: 1px solid #e5e7eb;
+            padding-top: 5px;
+        }
+
+        @media print {
+            body { background: none; -webkit-print-color-adjust: exact; }
+            .print-container { width: 100%; height: auto; margin: 0; padding: 0; box-shadow: none; min-height: auto; }
+            header { margin-top: 0; }
+            footer { page-break-inside: avoid; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="print-container">
+        <header>
+            <div class="prof-info">
+                <img id="logo" class="prof-logo" style="display: none;">
+                <div class="prof-details">
+                    <h2 id="profName"></h2>
+                    <p id="profSpecialty"></p>
+                    <p id="profRegister"></p>
+                </div>
+            </div>
+            <div class="doc-type">
+                <h1 id="docType">PEDIDO DE EXAMES</h1>
+                <p class="doc-date" id="docDate"></p>
+            </div>
+        </header>
+
+        <div class="patient-box">
+            <p class="patient-name" id="patientName"></p>
+            <p class="patient-details"><span id="patientAddress"></span></p>
+            <p class="patient-details"><strong>CPF:</strong> <span id="patientCPF">---</span></p>
+            
+            <div class="patient-metrics">
+                <span class="metric-item"><strong>Sexo:</strong> <span id="patientGender">---</span></span>
+                <span class="metric-item"><strong>Idade:</strong> <span id="patientAge">---</span></span>
+                <span class="metric-item"><strong>Peso:</strong> <span id="patientWeight">---</span> kg</span>
+                <span class="metric-item"><strong>Altura:</strong> <span id="patientHeight">---</span> cm</span>
+                <span class="metric-item" style="margin-left: auto;"><strong>Prontuário:</strong> #<span id="patientRecord">---</span></span>
+            </div>
+        </div>
+
+        <div class="content-body">
+            <div id="introText" class="intro-text" style="display: none;"></div>
+
+            <div id="examsListBody"></div>
+            
+            <div id="recommendationsBody" class="recommendations-section" style="display: none;">
+                <div class="rec-header">Recomendações / Observações</div>
+                <div class="rec-text" id="recText"></div>
+            </div>
+        </div>
+
+        <footer>
+            <div class="signature-box">
+                <p class="sig-name" id="sigName"></p>
+                <p class="sig-reg" id="sigRegister"></p>
+            </div>
+            <div class="footer-address" id="footerAddress"></div>
+        </footer>
+    </div>
+
+    <script>
+        function calculateAge(birthdate) {
+            if (!birthdate) return '---';
+            const birth = new Date(birthdate + 'T00:00:00');
+            const today = new Date();
+            let age = today.getFullYear() - birth.getFullYear();
+            const m = today.getMonth() - birth.getMonth();
+            if (m < 0 || (m === 0 && today.getDate() < birth.getDate())) {
+                age--;
+            }
+            return age + ' anos';
+        }
+
+        // Função auxiliar robusta para pegar valores
+        function getVal(obj, keys) {
+            for (let k of keys) {
+                if (obj && obj[k] !== undefined && obj[k] !== null && obj[k] !== '') return obj[k];
+            }
+            return null;
+        }
+
+        window.onload = function() {
+            const dataStr = sessionStorage.getItem('prescriptionToPrint');
+            if (!dataStr) {
+                document.body.innerHTML = '<p style="text-align:center; padding: 20px; color:red">Erro: Nenhum dado encontrado.</p>';
+                return;
+            }
+
+            const data = JSON.parse(dataStr);
+            const user = data.user || {};
+            const patient = data.patient || {};
+            const doc = data.document || {};
+            const items = doc.items || [];
+
+            // 1. Preenche Cabeçalho (Profissional)
+            document.getElementById('profName').innerText = user.professionalName || user.name || 'Profissional';
+            
+            let professionText = user.profession || '';
+            if (user.specialty) {
+                professionText += (professionText ? ' - ' : '') + user.specialty;
+            }
+            document.getElementById('profSpecialty').innerText = professionText;
+            document.getElementById('profRegister').innerText = user.professional_register || '';
+            
+            if (user.logo) {
+                const img = document.getElementById('logo');
+                img.src = user.logo;
+                img.style.display = 'block';
+            }
+
+            // 2. Data
+            document.getElementById('docDate').innerText = doc.date || new Date().toLocaleDateString('pt-BR');
+
+            // 3. Preenche Paciente (Com Verificação Robusta)
+            document.getElementById('patientName').innerText = patient.name || 'Paciente';
+            
+            let addressText = 'Endereço não informado';
+            if (patient.street) {
+                addressText = `${patient.street}, ${patient.street_number || 'S/N'}`;
+                if (patient.neighborhood) addressText += ` - ${patient.neighborhood}`;
+                if (patient.city) addressText += ` - ${patient.city}/${patient.state || ''}`;
+                if (patient.zip_code) addressText += ` (CEP: ${patient.zip_code})`;
+            } else if (patient.full_address) {
+                addressText = patient.full_address;
+            }
+            document.getElementById('patientAddress').innerText = addressText;
+
+            // CPF
+            document.getElementById('patientCPF').innerText = getVal(patient, ['cpf', 'CPF', 'doc_cpf']) || 'Não informado';
+            
+            // Idade e Sexo
+            document.getElementById('patientAge').innerText = patient.age_formatted || calculateAge(patient.birthdate);
+            document.getElementById('patientGender').innerText = getVal(patient, ['gender', 'sexo', 'Gender']) || '---';
+            
+            // Prontuário
+            document.getElementById('patientRecord').innerText = patient.id || '---';
+
+            // Peso e Altura (Robustez adicionada)
+            const weight = getVal(patient, ['measure_weight', 'weight', 'Weight', 'peso']);
+            const height = getVal(patient, ['measure_height', 'height', 'Height', 'altura']);
+
+            document.getElementById('patientWeight').innerText = weight ? String(weight).replace('.', ',') : '---';
+            document.getElementById('patientHeight').innerText = height ? height : '---';
+
+            // 4. Intro Text (para Exames)
+            // Se vier do JS (intro_text) ou hardcoded no HTML anterior, usa.
+            if (doc.intro_text) {
+                const introDiv = document.getElementById('introText');
+                introDiv.innerText = doc.intro_text;
+                introDiv.style.display = 'block';
+            } else {
+                // Caso não venha do JS, mantém o texto padrão se for exame
+                document.getElementById('introText').style.display = 'block';
+                document.getElementById('introText').innerText = "Solicito a realização dos exames a seguir, com o objetivo de monitorar a saúde do paciente e diagnosticar possíveis condições de saúde.";
+            }
+
+            // 5. Preenche Lista de Exames
+            const listContainer = document.getElementById('examsListBody');
+            
+            if (items && items.length > 0) {
+                const ul = document.createElement('ul');
+                ul.className = 'exam-list';
+                
+                items.forEach(item => {
+                    const li = document.createElement('li');
+                    li.className = 'exam-item';
+                    
+                    let itemHtml = `<div class="exam-name">${item.name}</div>`;
+                    if (item.instructions) {
+                        itemHtml += `<span class="exam-instructions">${item.instructions}</span>`;
+                    }
+                    
+                    li.innerHTML = itemHtml;
+                    ul.appendChild(li);
+                });
+                listContainer.appendChild(ul);
+            } else {
+                // Fallback para texto livre
+                const content = doc.final_content || doc.content || '';
+                listContainer.innerHTML = `<div style="white-space: pre-wrap; margin-top: 10px;">${content}</div>`;
+            }
+
+            // 6. Recomendações
+            if (doc.recommendations) {
+                document.getElementById('recommendationsBody').style.display = 'block';
+                document.getElementById('recText').innerText = doc.recommendations;
+            }
+
+            // 7. Rodapé
+            document.getElementById('sigName').innerText = user.professionalName || user.name;
+            document.getElementById('sigRegister').innerText = user.professional_register || '';
+            
+            let footerAddr = `${user.street || ''}, ${user.street_number || ''}`;
+            if (user.neighborhood) footerAddr += ` - ${user.neighborhood}`;
+            if (user.city) footerAddr += ` - ${user.city}/${user.state || ''}`;
+            if (user.phone) footerAddr += ` | Tel: ${user.phone}`;
+            
+            document.getElementById('footerAddress').innerText = footerAddr.replace(/^, /, '').replace(/ - \/$/, '');
+
+            setTimeout(() => {
+                window.print();
+            }, 500);
+        };
+    </script>
+</body>
+</html>

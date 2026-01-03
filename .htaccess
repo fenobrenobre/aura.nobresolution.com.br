@@ -1,0 +1,41 @@
+<IfModule mod_rewrite.c>
+    Options -Indexes
+    RewriteEngine On
+    RewriteBase /
+    Header set Permissions-Policy "accelerometer=*, camera=*, geolocation=*, gyroscope=*, magnetometer=*, microphone=*, payment=*, usb=*"
+    Header set Referrer-Policy "no-referrer-when-downgrade"
+    Header set Access-Control-Allow-Origin "*"
+    Header set Access-Control-Allow-Credentials "true"
+    # 1. Permite acesso direto à pasta da API (BackEnd)
+    RewriteRule ^BackEnd/ - [L]
+    
+    # 2. Permite acesso direto à pasta de Uploads
+    RewriteRule ^uploads/ - [L]
+    
+    # MUDANÇA AQUI: Aponta para index.php
+    RewriteRule ^(/)?$ www/index.php [L]
+
+    # 4. Rota Mágica:
+    RewriteCond %{HTTP_HOST} ^(www\.)?aura\.nobresolution\.com\.br$ [NC]
+    RewriteCond %{REQUEST_URI} !^/www/
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)$ /www/$1 [L]
+</IfModule>
+# Proteção básica de arquivos sensíveis
+<FilesMatch "^\.">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Força tipos MIME
+<FilesMatch "\.(jpg|jpeg|png|gif|bmp|webp)$">
+    Header set Content-Type "image/%s"
+</FilesMatch>
+
+# php -- BEGIN cPanel-generated handler, do not edit
+# Defina o pacote “ea-php81” como a linguagem padrão de programação “PHP”.
+<IfModule mime_module>
+  AddHandler application/x-httpd-ea-php81___lsphp .php .php8 .phtml
+</IfModule>
+# php -- END cPanel-generated handler, do not edit

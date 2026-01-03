@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orçamento</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f9fafb;
+            color: #1f2937;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 800px;
+            margin: 20px auto;
+            background-color: #ffffff;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            padding: 40px;
+            box-sizing: border-box;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            border-bottom: 2px solid #e5e7eb;
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+        }
+        .user-info {
+            text-align: left;
+        }
+        .user-info img {
+            max-height: 48px;
+            width: auto;
+            margin-bottom: 10px;
+            display: none;
+        }
+        .user-info h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0 0 5px 0;
+        }
+        .user-info p {
+            font-size: 0.9rem;
+            color: #4b5563;
+            margin: 2px 0;
+        }
+        .budget-title {
+            text-align: right;
+        }
+        .budget-title h2 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin: 0 0 5px 0;
+            color: #374151;
+        }
+        .budget-title p {
+            font-size: 0.9rem;
+            color: #4b5563;
+            margin: 2px 0;
+        }
+        .patient-info {
+            background-color: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 15px 20px;
+            margin-bottom: 25px;
+        }
+        .patient-info h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin: 0 0 10px 0;
+            color: #111827;
+        }
+        .patient-info p {
+            font-size: 0.9rem;
+            color: #4b5563;
+            margin: 2px 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            font-size: 0.9rem;
+        }
+        th, td {
+            border: 1px solid #e5e7eb;
+            padding: 10px 12px;
+            text-align: left;
+            vertical-align: top;
+        }
+        thead th {
+            background-color: #f9fafb;
+            font-weight: 600;
+            color: #374151;
+        }
+        tbody tr:nth-child(even) {
+            background-color: #f9fafb;
+        }
+        .text-right { text-align: right; }
+        .text-center { text-align: center; }
+        .font-semibold { font-weight: 600; }
+        .total-section {
+            margin-top: 25px;
+            display: flex;
+            justify-content: flex-end;
+        }
+        .total-table {
+            width: 50%;
+            max-width: 350px;
+        }
+        .total-table td {
+            border: none;
+            padding: 6px 12px;
+        }
+        .total-table tr.grand-total {
+            font-size: 1.2rem;
+            font-weight: 700;
+            border-top: 2px solid #d1d5db;
+        }
+        .notes-section {
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px dashed #d1d5db;
+        }
+        .notes-section h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin: 0 0 10px 0;
+        }
+        .notes-section p {
+            font-size: 0.9rem;
+            color: #4b5563;
+            white-space: pre-wrap;
+            min-height: 50px;
+        }
+
+        @media print {
+            body {
+                background-color: #ffffff;
+            }
+            .container {
+                width: 100%;
+                margin: 0;
+                border: none;
+                box-shadow: none;
+                padding: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="print-container">
+        <header>
+            <div class="user-info">
+                <img id="user-logo" src="" alt="Logo">
+                <h1 id="user-name">[Nome do Profissional]</h1>
+                <p id="user-profession">[Profissão]</p>
+                <p id="user-register">[Registro]</p>
+                <p id="user-email">[Email]</p>
+                <p id="user-phone">[Telefone]</p>
+            </div>
+            <div class="budget-title">
+                <h2>Orçamento</h2>
+                <p>Nº: <strong id="budget-id">[Nº Orçamento]</strong></p>
+                <p>Data: <strong id="budget-date">[Data]</strong></p>
+                <p>Validade: <strong id="budget-validity">[Validade] dias</strong></p>
+            </div>
+        </header>
+
+        <section class="patient-info">
+            <h3 id="patient-label">Paciente</h3>
+            <p><strong>Nome:</strong> <span id="patient-name">[Nome do Paciente]</span></p>
+            <p><strong>CPF:</strong> <span id="patient-cpf">[CPF do Paciente]</span></p>
+            <p><strong>Telefone:</strong> <span id="patient-phone">[Telefone do Paciente]</span></p>
+            </section>
+
+        <section class="items-section">
+            <h4>Itens do Orçamento</h4>
+            <table id="items-table">
+                <thead>
+                    <tr>
+                        <th id="region-header" style="display: none;">Região</th>
+                        <th>Descrição</th>
+                        <th class="text-right">Valor Unit.</th>
+                        <th class="text-right">Acréscimo</th>
+                        <th class="text-right">Desconto</th>
+                        <th class="text-right">Valor Final</th>
+                    </tr>
+                </thead>
+                <tbody id="items-tbody">
+                    </tbody>
+            </table>
+        </section>
+
+        <section class="items-section" id="recurring-items-section" style="display: none;">
+            <h4>Itens Recorrentes</h4>
+            <table id="recurring-items-table">
+                <thead>
+                    <tr>
+                        <th>Descrição</th>
+                        <th class="text-center">Periodicidade</th>
+                        <th class="text-right">Valor Unit.</th>
+                        <th class="text-right">Acréscimo</th>
+                        <th class="text-right">Desconto</th>
+                        <th class="text-right">Valor Final</th>
+                    </tr>
+                </thead>
+                <tbody id="recurring-items-tbody">
+                    </tbody>
+            </table>
+        </section>
+
+        <section class="payment-section" id="payment-section" style="display: none;">
+             <h4>Forma de Pagamento</h4>
+            <table id="payment-table">
+                <thead>
+                    <tr>
+                        <th class="text-center">Data Prev.</th>
+                        <th>Método</th>
+                        <th class="text-right">Valor</th>
+                    </tr>
+                </thead>
+                <tbody id="payment-tbody">
+                    </tbody>
+            </table>
+        </section>
+
+        <div class="total-section">
+            <table class="total-table">
+                <tbody>
+                    <tr>
+                        <td>Subtotal (Itens):</td>
+                        <td class="text-right" id="budget-subtotal">R$ 0,00</td>
+                    </tr>
+                    <tr id="recurring-total-row" style="display: none;">
+                        <td>Total Recorrente:</td>
+                        <td class="text-right" id="budget-recurring-total">R$ 0,00</td>
+                    </tr>
+                    <tr id="budget-discount-row" style="display: none;">
+                        <td>Descontos (Itens):</td>
+                        <td class="text-right" id="budget-discount">R$ 0,00</td>
+                    </tr>
+                    <tr class="grand-total">
+                        <td>Total Geral:</td>
+                        <td class="text-right" id="budget-total">R$ 0,00</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <section class="notes-section" id="notes-section" style="display: none;">
+            <h4>Observações</h4>
+            <p id="budget-notes"></p>
+        </section>
+    </div>
+
+    <script>
+        window.onload = function() {
+            const formatCurrency = (value) => {
+                return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(value || 0);
+            };
+
+            const formatDate = (dateString) => {
+                if (!dateString) return 'N/D';
+                try {
+                    const date = new Date(dateString + 'T00:00:00');
+                    if (isNaN(date.getTime())) return 'Data Inválida';
+                    return date.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric' });
+                } catch (e) {
+                    return dateString;
+                }
+            };
+
+            const dataString = sessionStorage.getItem('budgetToPrint');
+            if (!dataString) {
+                document.body.innerHTML = '<h1>Erro: Dados do orçamento não encontrados. Feche esta janela e tente novamente.</h1>';
+                return;
+            }
+
+            const data = JSON.parse(dataString);
+            const budget = data.budget;
+            const user = data.user;
+            const labels = data.labels; 
+
+            if (labels && labels.patient) {
+                document.getElementById('patient-label').innerText = labels.patient;
+            }
+
+            const logoImg = document.getElementById('user-logo');
+            if (user.logo) {
+                logoImg.src = user.logo;
+                logoImg.style.display = 'block';
+            } else {
+                logoImg.style.display = 'none';
+            }
+
+            document.getElementById('user-name').innerText = user.professionalName || user.name;
+            
+            // ** ATUALIZAÇÃO: Exibe Profissão + Especialidade **
+            let professionText = user.profession || '';
+            if (user.specialty) {
+                professionText += (professionText ? ' - ' : '') + user.specialty;
+            }
+            document.getElementById('user-profession').innerText = professionText;
+            
+            const userRegister = document.getElementById('user-register');
+            if (user.professional_register) {
+                userRegister.innerText = user.professional_register;
+            } else {
+                userRegister.style.display = 'none';
+            }
+
+            document.getElementById('user-email').innerText = user.email || '';
+            document.getElementById('user-phone').innerText = user.phone || '';
+
+            document.getElementById('budget-id').innerText = budget.id || 'N/A';
+            document.getElementById('budget-date').innerText = new Date(budget.createdAt || Date.now()).toLocaleDateString('pt-BR');
+            document.getElementById('budget-validity').innerText = budget.validity_days || 30;
+
+            document.getElementById('patient-name').innerText = budget.patient_name || '[Não informado]';
+            document.getElementById('patient-cpf').innerText = budget.patient_cpf || (data.patient ? data.patient.cpf : '[Não informado]');
+            document.getElementById('patient-phone').innerText = budget.patient_phone || (data.patient ? data.patient.phone : '[Não informado]');
+
+            const itemsTbody = document.getElementById('items-tbody');
+            const regionHeader = document.getElementById('region-header');
+            const showRegion = user.budget_form_fields && user.budget_form_fields.region;
+            
+            if (showRegion) {
+                regionHeader.style.display = 'table-cell';
+            }
+
+            const validItems = (budget.items || []).filter(item => item.description && item.description.trim() !== '');
+            
+            if (validItems.length === 0) {
+                 document.getElementById('items-table').style.display = 'none';
+            }
+
+            validItems.forEach(item => {
+                const row = itemsTbody.insertRow();
+                let cellIndex = 0;
+                
+                if (showRegion) {
+                    row.insertCell(cellIndex++).innerText = item.region || '';
+                }
+                
+                const quantity = 1;
+                row.insertCell(cellIndex++).innerText = item.description;
+                row.insertCell(cellIndex++).innerText = formatCurrency(item.value);
+                row.insertCell(cellIndex++).innerText = formatCurrency(item.increment);
+                row.insertCell(cellIndex++).innerText = formatCurrency(item.discount);
+                const finalValue = ((parseFloat(item.value) || 0) + (parseFloat(item.increment) || 0)) * quantity - (parseFloat(item.discount) || 0);
+                row.insertCell(cellIndex++).innerText = formatCurrency(finalValue);
+
+                row.cells[cellIndex - 4].classList.add('text-right');
+                row.cells[cellIndex - 3].classList.add('text-right');
+                row.cells[cellIndex - 2].classList.add('text-right');
+                row.cells[cellIndex - 1].classList.add('text-right', 'font-semibold');
+            });
+
+            const validRecurringItems = (budget.recurring_items || []).filter(item => item.description && item.description.trim() !== '');
+
+            if (validRecurringItems.length > 0) {
+                document.getElementById('recurring-items-section').style.display = 'block';
+                const recurringTbody = document.getElementById('recurring-items-tbody');
+                validRecurringItems.forEach(item => {
+                    const row = recurringTbody.insertRow();
+                    
+                    const quantity = 1;
+                    row.insertCell(0).innerText = item.description;
+                    row.insertCell(1).innerText = item.periodicity;
+                    row.insertCell(2).innerText = formatCurrency(item.value);
+                    row.insertCell(3).innerText = formatCurrency(item.increment);
+                    row.insertCell(4).innerText = formatCurrency(item.discount);
+                    const finalValue = ((parseFloat(item.value) || 0) + (parseFloat(item.increment) || 0)) * quantity - (parseFloat(item.discount) || 0);
+                    row.insertCell(5).innerText = formatCurrency(finalValue);
+
+                    row.cells[1].classList.add('text-center');
+                    row.cells[2].classList.add('text-right');
+                    row.cells[3].classList.add('text-right');
+                    row.cells[4].classList.add('text-right');
+                    row.cells[5].classList.add('text-right', 'font-semibold');
+                });
+            }
+
+            const paymentTbody = document.getElementById('payment-tbody');
+            let hasPaymentInfo = false;
+            
+            if (budget.payment_details && budget.payment_details.length > 0) {
+                hasPaymentInfo = true;
+                const headerRow = paymentTbody.insertRow();
+                const headerCell = headerRow.insertCell(0);
+                headerCell.colSpan = 3;
+                headerCell.innerHTML = "<strong>Itens Principais</strong>";
+                headerCell.style.backgroundColor = "#f9fafb";
+
+                budget.payment_details.forEach(detail => {
+                    const row = paymentTbody.insertRow();
+                    row.insertCell(0).innerText = formatDate(detail.date);
+                    row.cells[0].classList.add('text-center');
+                    row.insertCell(1).innerText = detail.method;
+                    row.insertCell(2).innerText = formatCurrency(detail.value);
+                    row.cells[2].classList.add('text-right');
+                });
+            }
+            
+            if (budget.recurring_payment_details && budget.recurring_payment_details.length > 0) {
+                hasPaymentInfo = true;
+                const headerRow = paymentTbody.insertRow();
+                const headerCell = headerRow.insertCell(0);
+                headerCell.colSpan = 3;
+                headerCell.innerHTML = "<strong>Itens Recorrentes</strong>";
+                headerCell.style.backgroundColor = "#f9fafb";
+
+                budget.recurring_payment_details.forEach(detail => {
+                    const row = paymentTbody.insertRow();
+                    row.insertCell(0).innerText = formatDate(detail.date);
+                    row.cells[0].classList.add('text-center');
+                    row.insertCell(1).innerText = detail.method;
+                    row.insertCell(2).innerText = formatCurrency(detail.value);
+                    row.cells[2].classList.add('text-right');
+                });
+            }
+
+            if(hasPaymentInfo) {
+                document.getElementById('payment-section').style.display = 'block';
+            }
+
+            const budgetSubtotal = (validItems || []).reduce((sum, item) => sum + (( (parseFloat(item.value) || 0) + (parseFloat(item.increment) || 0) ) * 1), 0);
+            const budgetRecurringTotal = (validRecurringItems || []).reduce((sum, item) => { const itemValue = ((parseFloat(item.value) || 0) + (parseFloat(item.increment) || 0)) * 1; const itemDiscount = parseFloat(item.discount) || 0; return sum + (itemValue - itemDiscount); }, 0);
+            
+            const itemDiscounts = (validItems || []).reduce((sum, item) => sum + (parseFloat(item.discount) || 0), 0);
+            const budgetTotal = budgetSubtotal + budgetRecurringTotal - itemDiscounts; 
+
+            document.getElementById('budget-subtotal').innerText = formatCurrency(budgetSubtotal);
+            if (budgetRecurringTotal > 0) {
+                document.getElementById('recurring-total-row').style.display = 'table-row';
+                document.getElementById('budget-recurring-total').innerText = formatCurrency(budgetRecurringTotal);
+            }
+            
+            if (itemDiscounts > 0) {
+                document.getElementById('budget-discount-row').style.display = 'table-row';
+                document.getElementById('budget-discount').innerText = formatCurrency(itemDiscounts);
+            }
+            
+            document.getElementById('budget-total').innerText = formatCurrency(budgetTotal);
+            
+            if(budget.notes) {
+                document.getElementById('notes-section').style.display = 'block';
+                document.getElementById('budget-notes').innerText = budget.notes;
+            }
+
+            setTimeout(() => {
+                window.print();
+            }, 500);
+        };
+    </script>
+</body>
+</html>

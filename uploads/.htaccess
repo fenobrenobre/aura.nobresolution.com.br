@@ -1,0 +1,28 @@
+# 1. Desativa a listagem de arquivos (ninguém pode ver a lista de fotos)
+Options -Indexes
+
+# 2. Desativa a execução de scripts PHP nesta pasta (Defesa em Profundidade)
+<IfModule mod_php.c>
+    php_flag engine off
+</IfModule>
+<IfModule mod_php5.c>
+    php_flag engine off
+</IfModule>
+<IfModule mod_php7.c>
+    php_flag engine off
+</IfModule>
+<IfModule mod_php8.c>
+    php_flag engine off
+</IfModule>
+
+# 3. Bloqueia acesso direto a qualquer arquivo com extensão de script
+# Mesmo que alguém consiga fazer upload, não conseguirá acessar/rodar via navegador
+<FilesMatch "\.(php|php2|php3|php4|php5|php6|php7|php8|phps|phtml|pl|py|cgi|asp|aspx|jsp|sh|exe|bat|cmd)$">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>
+
+# 4. Força tipos MIME seguros para imagens, prevenindo interpretação errada do navegador
+<FilesMatch "\.(jpg|jpeg|png|gif|bmp|webp)$">
+    Header set Content-Type "image/%s"
+</FilesMatch>

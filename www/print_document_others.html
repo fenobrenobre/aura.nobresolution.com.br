@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Impressão de Documento</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 1.5cm; /* Margens padrão para impressão */
+        }
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 11pt;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        #header {
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        #header img {
+            max-width: 100px;
+            height: auto;
+        }
+        #header-info {
+            text-align: right;
+            font-size: 9pt;
+        }
+        #header-info h1 {
+            font-size: 14pt;
+            margin: 0 0 5px 0;
+            color: #000;
+        }
+        #content-wrapper {
+            flex-grow: 1; /* Ocupa todo o espaço vertical restante */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        #document-body {
+            /* Usado para o texto da carta */
+            white-space: pre-wrap; /* Preserva quebras de linha do textarea */
+            margin-bottom: 40px; /* Espaço antes do rodapé/assinatura */
+            font-size: 12pt;
+        }
+        .signature-block {
+            margin-top: 20px; /* Espaço mínimo acima da assinatura */
+        }
+        #signature-area {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 10px;
+            border-top: 1px solid #333;
+            width: 70%;
+            max-width: 350px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        #signature-area p {
+            margin: 3px 0;
+            font-size: 11pt;
+        }
+        .main-title {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .main-title h2 {
+            font-size: 16pt;
+            margin-top: 0;
+            color: #000;
+        }
+        .main-title h3 {
+            font-size: 14pt;
+            color: #555;
+            margin: 5px 0 20px 0; /* Espaço maior após o subtítulo Risco Cirúrgico */
+        }
+
+        /* Classes de utilidade forçada para impressão */
+        .mb-20 { margin-bottom: 20px !important; }
+
+        @media print {
+            body { 
+                height: 100%;
+                min-height: 0; 
+                line-height: 1.4;
+            }
+            #document-body {
+                /* Garante que o texto seja a primeira coisa a esticar */
+                flex-grow: 1; 
+                margin-bottom: 40px; 
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="header">
+        <img id="user-logo" src="" alt="Logo" style="display:none;">
+        <div id="header-info">
+            <h1 id="user-name"></h1>
+            <p id="user-info"></p>
+        </div>
+    </div>
+
+    <div id="content-wrapper">
+        <div id="main-content">
+            <div class="main-title">
+                <h2 id="document-title">CARTA</h2> 
+                <h3 id="document-subtitle">Risco Cirúrgico</h3>
+            </div>
+
+            <div id="document-body"></div>
+        </div>
+        
+        <div class="signature-block">
+            <p id="document-city-date" style="text-align: right; margin-bottom: 50px;"></p>
+            <div id="signature-area">
+                <p id="signature-name"></p>
+                <p id="signature-register"></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Função para injetar o conteúdo
+        function loadAndPrint() {
+            const data = JSON.parse(sessionStorage.getItem('documentToPrint'));
+            if (!data) {
+                alert('Erro: Dados do documento não encontrados.');
+                return;
+            }
+
+            const { item, user, patient } = data;
+            
+            // 1. Configura Cabeçalho e Rodapé
+            document.getElementById('user-name').textContent = user.professional_name || user.name;
+            document.getElementById('user-info').innerHTML = `${user.profession || 'Profissão'} - ${user.professional_register || 'Registro'}<br>Tel: ${user.phone || 'N/D'} | Email: ${user.email || 'N/D'}`;
+
+            if (user.logo_url) {
+                document.getElementById('user-logo').src = user.logo_url;
+                document.getElementById('user-logo').style.display = 'block';
+            } else {
+                 document.getElementById('user-name').style.textAlign = 'left';
+            }
+
+            // 2. Configura Título e Subtítulo
+            // item.name é o título do modelo (ex: "Carta para Internação")
+            document.getElementById('document-title').textContent = item.name.toUpperCase();
+            document.getElementById('document-subtitle').textContent = item.presentation ? item.presentation : '';
+
+            // 3. Injeta Conteúdo (Substitui as variáveis [PACIENTE], etc.)
+            let content = item.instructions || '';
+            
+            // Substituições de variáveis (Ajuste conforme as variáveis reais do seu sistema)
+            content = content.replace(/\[PACIENTE\]/g, patient.name || 'Paciente');
+            content = content.replace(/\[CPF\]/g, patient.cpf || 'N/D');
+            content = content.replace(/\[DATA_NASC\]/g, patient.birthdate ? new Date(patient.birthdate + 'T00:00:00').toLocaleDateString('pt-BR') : 'N/D');
+            
+            // Adicione outras substituições necessárias aqui:
+            // content = content.replace(/\[VARIAVEL\]/g, patient.outra_variavel || 'N/D');
+
+            document.getElementById('document-body').textContent = content;
+
+            // 4. Configura Bloco de Assinatura
+            const today = new Date();
+            const dateStr = today.toLocaleDateString('pt-BR');
+            const city = user.city || 'Cidade';
+
+            document.getElementById('document-city-date').textContent = `${city}, ${dateStr}.`;
+            document.getElementById('signature-name').textContent = user.professional_name || user.name;
+            document.getElementById('signature-register').textContent = `${user.profession || 'Profissão'} | ${user.professional_register || 'Registro'}`;
+
+            // Inicia a Impressão
+            window.onload = () => {
+                window.print();
+            };
+        }
+
+        // Chama a função principal
+        loadAndPrint();
+    </script>
+</body>
+</html>
